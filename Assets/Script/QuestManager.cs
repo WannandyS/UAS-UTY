@@ -29,9 +29,15 @@ public class QuestManager : MonoBehaviour
     public TypewriterEffect effect;
     private int messageIndex = 0;
 
-    private void QuestComplete()
+    public void QuestComplete()
     {
-        checkmark[completedId++] = 2;
+        checkmark[completedId] = 2;
+    }
+
+    public void QuestUncomplete()
+    {
+        if (checkmark[completedId] == 2)
+            checkmark[completedId] = 1;
     }
 
     void Awake()
@@ -85,7 +91,9 @@ public class QuestManager : MonoBehaviour
                 quests[completedId].OnQuestMessageFinish?.Invoke();
             }
             else if (status == 2)
-                quests[completedId].OnQuestCompleteMessageFinish?.Invoke();
+            {
+                quests[completedId++].OnQuestCompleteMessageFinish?.Invoke();
+            }
         }
     }
 }

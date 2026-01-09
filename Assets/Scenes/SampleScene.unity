@@ -3744,6 +3744,7 @@ GameObject:
   - component: {fileID: 207491382}
   - component: {fileID: 207491381}
   - component: {fileID: 207491380}
+  - component: {fileID: 207491386}
   - component: {fileID: 207491385}
   m_Layer: 0
   m_Name: Screen
@@ -3979,6 +3980,49 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &207491386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207491378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30f595649c9fe8c4c889d75c5e0146ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VideoFinishListener
+  videoPlayer: {fileID: 207491380}
+  OnVideoFinished:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 788592869}
+        m_TargetAssemblyTypeName: QuestManager, Assembly-CSharp
+        m_MethodName: QuestComplete
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnVideoError:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 788592869}
+        m_TargetAssemblyTypeName: QuestManager, Assembly-CSharp
+        m_MethodName: QuestUncomplete
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &208503575
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11388,6 +11432,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1168890521}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls: []
@@ -13246,11 +13302,11 @@ MonoBehaviour:
   - messages:
     - Hey, could you lend me a hand?
     - I need to organize these documents but I'm out of supplies.
-    - Could you please find me 2 green folders in the filing cabinet over there?
+    - Could you please find me a green folder in the filing cabinet over there?
     fallbacks:
     - Haven't found them yet?
     - Try checking the cabinet in the corner again.
-    - I really need those 2 green folders so I can clear up this mess.
+    - I really need that green folders so I can clear up this mess.
     completes:
     - Perfect, this is exactly the color I needed!
     - Thanks a lot, now I can finally finish filing these.
@@ -13269,7 +13325,112 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
-    OnQuestCompleteFinish:
+    OnQuestCompleteMessageFinish:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 926895351}
+          m_TargetAssemblyTypeName: ObjectDestroyer, Assembly-CSharp
+          m_MethodName: DestroyIt
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 788592869}
+          m_TargetAssemblyTypeName: QuestManager, Assembly-CSharp
+          m_MethodName: NextMessage
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+  - messages:
+    - Oh no, the printer is jamming again!
+    - It says 'Out of Paper' and I'm in a rush.
+    - Can you grab a sheet of paper from the printer rack for me?
+    fallbacks:
+    - My report is stuck in the print queue.
+    - Did you manage to find that sheet of paper I asked for?
+    completes:
+    - "Phew, it\u2019s finally printing!"
+    - Thank you so much for the help, you really saved my presentation today.
+    OnQuestMessageFinish:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 48392}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+    OnQuestCompleteMessageFinish:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1805377950}
+          m_TargetAssemblyTypeName: ObjectDestroyer, Assembly-CSharp
+          m_MethodName: DestroyIt
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 788592869}
+          m_TargetAssemblyTypeName: QuestManager, Assembly-CSharp
+          m_MethodName: NextMessage
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - messages:
+    - Hi there! My hands are completely full with these boxes.
+    - Could you do me a favor and turn on the computer at my desk?
+    - The power button is on the CPU case.
+    fallbacks:
+    - Looks like the screen is still black.
+    - Did you press the power button on my computer?
+    - It usually takes a moment to boot up.
+    completes:
+    - Awesome, the screen is on!
+    - Thanks for that, now I can get straight to work once I put these down.
+    OnQuestMessageFinish:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1168890521}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+    OnQuestCompleteMessageFinish:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 788592869}
@@ -13284,39 +13445,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - messages:
-    - Oh no, the printer is jamming again!
-    - It says 'Out of Paper' and I'm in a rush.
-    - Can you grab 2 sheets of paper from the printer rack for me?
-    fallbacks:
-    - My report is stuck in the print queue.
-    - Did you manage to find those 2 sheets of paper I asked for?
-    completes:
-    - "Phew, it\u2019s finally printing!"
-    - Thank you so much for the help, you really saved my presentation today.
-    OnQuestMessageFinish:
-      m_PersistentCalls:
-        m_Calls: []
-    OnQuestCompleteFinish:
-      m_PersistentCalls:
-        m_Calls: []
-  - messages:
-    - Hi there! My hands are completely full with these boxes.
-    - Could you do me a favor and turn on the computer at my desk?
-    - The power button is on the CPU case.
-    fallbacks:
-    - Looks like the screen is still black.
-    - Did you press the power button on my computer?
-    - It usually takes a moment to boot up.
-    completes:
-    - Awesome, the screen is on!
-    - Thanks for that, now I can get straight to work once I put these down.
-    OnQuestMessageFinish:
-      m_PersistentCalls:
-        m_Calls: []
-    OnQuestCompleteFinish:
-      m_PersistentCalls:
-        m_Calls: []
   effect: {fileID: 1315279169}
 --- !u!4 &788592870
 Transform:
@@ -16710,9 +16838,45 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 788592869}
+        m_TargetAssemblyTypeName: QuestManager, Assembly-CSharp
+        m_MethodName: QuestComplete
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1466853190}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 788592869}
+        m_TargetAssemblyTypeName: QuestManager, Assembly-CSharp
+        m_MethodName: QuestUncomplete
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_FirstFocusEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -16913,6 +17077,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &926895351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926895340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc27eedb58031846bb233511fa9af57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectDestroyer
 --- !u!1 &941845315 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2314887328997855384, guid: e6bec74b3d2659c45a9a9b0688e38c75, type: 3}
@@ -21892,6 +22068,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1156887796722948874, guid: f984636a8914ae543bcf09ca3510c481, type: 3}
   m_PrefabInstance: {fileID: 1168420532}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1168890521 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 66703fc043afbb845b8d4e82ca0cafa5, type: 3}
+  m_PrefabInstance: {fileID: 2123615426}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1171785434
 PrefabInstance:
@@ -29536,6 +29717,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1390111780938506544, guid: 1d430427663656c45b1e3b2f670b5b12, type: 3}
       insertIndex: -1
       addedObject: {fileID: 926895347}
+    - targetCorrespondingSourceObject: {fileID: 1390111780938506544, guid: 1d430427663656c45b1e3b2f670b5b12, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 926895351}
     - targetCorrespondingSourceObject: {fileID: 2716621607280016499, guid: 1d430427663656c45b1e3b2f670b5b12, type: 3}
       insertIndex: -1
       addedObject: {fileID: 724160954}
@@ -32959,6 +33143,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3689213640607575970, guid: 409a59359549aef418ba80e0b2e0056a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1805377946}
+    - targetCorrespondingSourceObject: {fileID: 3689213640607575970, guid: 409a59359549aef418ba80e0b2e0056a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1805377950}
   m_SourcePrefab: {fileID: 100100000, guid: 409a59359549aef418ba80e0b2e0056a, type: 3}
 --- !u!4 &1805377936 stripped
 Transform:
@@ -33025,9 +33212,45 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 788592869}
+        m_TargetAssemblyTypeName: QuestManager, Assembly-CSharp
+        m_MethodName: QuestComplete
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 48392}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 788592869}
+        m_TargetAssemblyTypeName: QuestManager, Assembly-CSharp
+        m_MethodName: QuestUncomplete
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_FirstFocusEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -33249,6 +33472,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1805377950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700966147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc27eedb58031846bb233511fa9af57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectDestroyer
 --- !u!1001 &1809673718
 PrefabInstance:
   m_ObjectHideFlags: 0
