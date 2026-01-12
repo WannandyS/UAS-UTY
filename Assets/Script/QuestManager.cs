@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -25,6 +26,7 @@ public class QuestManager : MonoBehaviour
 
     private List<int> checkmark = new();
     private int completedId = 0;
+    private Coroutine _questCoroutine;
 
     public TypewriterEffect effect;
     private int messageIndex = 0;
@@ -45,27 +47,31 @@ public class QuestManager : MonoBehaviour
         checkmark.Clear();
         checkmark.AddRange(Enumerable.Repeat(0, quests.Count));
     }
-
-    public void ShowQuest()
+    
+    public void ShowQuest(bool isDelay)
     {
+        if (_questCoroutine != null)
+            StopCoroutine(_questCoroutine);
+        _questCoroutine = StartCoroutine(ShowQuestEnumerator(isDelay));
+    }
+
+    public IEnumerator ShowQuestEnumerator(bool isDelay)
+    {
+        if (isDelay)
+            yield return new WaitForSeconds(1);
+
         canvas.SetActive(true);
-        foreach (var check in checkmark)
+        switch (checkmark[completedId])
         {
-            if (check == 2)
-            {
-                effect.Run(quests[completedId].completes[0]);
-                break;
-            }
-            else if (check == 1)
-            {
-                effect.Run(quests[completedId].fallbacks[0]);
-                break;
-            }
-            else if (check == 0)
-            {
+            case 0:
                 effect.Run(quests[completedId].messages[0]);
                 break;
-            }
+            case 1:
+                effect.Run(quests[completedId].fallbacks[0]);
+                break;
+            case 2:
+                effect.Run(quests[completedId].completes[0]);
+                break;
         }
     }
 
@@ -80,19 +86,27 @@ public class QuestManager : MonoBehaviour
 
 
         if (++messageIndex < m.Count)
+        {
+            canvas.SetActive(true);
+            Debug.Log("Complete ID: " + completedId.ToString() + " " + messageIndex.ToString());
             effect.Run(m[messageIndex]);
+        }
         else
         {
             messageIndex = 0;
             canvas.SetActive(false);
             if (status == 0)
             {
-                checkmark[completedId] = 1;
+                if (quests[completedId].fallbacks.Count > 0)
+                    checkmark[completedId] = 1;
                 quests[completedId].OnQuestMessageFinish?.Invoke();
             }
             else if (status == 2)
             {
-                quests[completedId++].OnQuestCompleteMessageFinish?.Invoke();
+                var old = completedId;
+                if (completedId + 1 < quests.Count)
+                    completedId++;
+                quests[old].OnQuestCompleteMessageFinish?.Invoke();
             }
         }
     }

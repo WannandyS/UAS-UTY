@@ -11,6 +11,7 @@ public class PrinterController : MonoBehaviour
     public GameObject printedPaperPrefab;
     public Transform outputPoint;
     public int maxPrintCount = 2;
+    public Transform printedPaperParent;
 
     [Header("Paper")]
     public float paperMoveSpeed = 0.2f;
@@ -91,6 +92,7 @@ public class PrinterController : MonoBehaviour
             outputPoint.position,
             outputPoint.rotation
         );
+        paper.name = "Quest2PaperObjectToBeRemoved";
 
         StartCoroutine(MovePaperOut(paper));
 
